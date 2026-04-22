@@ -67,6 +67,9 @@ The system utilizes a relational PostgreSQL schema managed via Prisma. Key relat
 - A **Blog** has a one-to-many relationship with **Comment**.
 - Comments are hidden by default (`isApproved: false`) until moderated.
 
+**Database Diagram -**
+**[Link Here](https://www.drawdb.app/editor?shareId=3a71a6d5adbec260baa7990f5af70b44)**
+
 ---
 
 ## ✨ Key Features & Design Decisions

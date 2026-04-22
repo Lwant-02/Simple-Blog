@@ -35,17 +35,17 @@ import {
 const navItems = [
   {
     title: "Dashboard",
-    url: "/admin",
+    url: "/admin/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Posts",
-    url: "/admin/posts",
+    url: "/admin/dashboard/posts",
     icon: FileText,
   },
   {
     title: "Comments",
-    url: "/admin/comments",
+    url: "/admin/dashboard/comments",
     icon: MessageSquare,
   },
 ];

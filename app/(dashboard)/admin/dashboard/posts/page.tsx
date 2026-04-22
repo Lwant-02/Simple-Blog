@@ -43,7 +43,7 @@ export default async function PostsPage() {
             Manage your blog articles and drafts.
           </p>
         </div>
-        <Link href="/admin/posts/new">
+        <Link href="/admin/dashboard/posts/new">
           <Button className="rounded-full px-6 cursor-pointer">
             <Plus className="mr-2 h-4 w-4" /> New Post
           </Button>
@@ -117,7 +117,7 @@ export default async function PostsPage() {
                             <ExternalLink className="h-4 w-4" />
                           </Button>
                         </Link>
-                        <Link href={`/admin/posts/${post.id}`}>
+                        <Link href={`/admin/dashboard/posts/${post.id}`}>
                           <Button
                             variant="ghost"
                             size="icon"

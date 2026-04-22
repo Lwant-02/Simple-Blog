@@ -6,12 +6,23 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "default_secret_for_dev_only_123",
 );
 
-export default async function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("admin_token")?.value;
 
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const token = request.cookies.get("admin_token")?.value;
+  if (pathname.includes("/admin/login")) {
+    if (token) {
+      try {
+        await jwtVerify(token, JWT_SECRET);
+        return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      } catch (error) {
+        return NextResponse.next();
+      }
+    }
+    return NextResponse.next();
+  }
 
+  if (pathname.startsWith("/admin/dashboard")) {
     if (!token) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
@@ -20,7 +31,6 @@ export default async function proxy(request: NextRequest) {
       await jwtVerify(token, JWT_SECRET);
       return NextResponse.next();
     } catch (error) {
-      console.error("JWT Verification failed:", error);
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }

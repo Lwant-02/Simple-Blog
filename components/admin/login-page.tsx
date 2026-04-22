@@ -58,7 +58,7 @@ export default function LoginPage() {
 
       if (res.ok) {
         toast.success("Login successful!");
-        router.push("/admin");
+        router.push("/admin/dashboard");
         router.refresh();
       } else {
         toast.error(result.error || "Invalid username or password");

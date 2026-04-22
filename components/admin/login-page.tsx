@@ -134,7 +134,7 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col">
           <p className="text-xs text-center text-muted-foreground mt-2">
-            Professional CMS Admin Dashboard v1.0
+            CMS Admin Dashboard
           </p>
         </CardFooter>
       </Card>

@@ -8,7 +8,7 @@ A high-performance, professional CMS and Blog engine built with the **Next.js Ap
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/) - Leveraged for Server-Side Rendering (SSR) and optimized hydration.
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/) - Leveraged for Server-Side Rendering (SSR) and optimized hydration.
 - **Language**: [TypeScript](https://www.typescriptlang.org/) - Ensures type safety across the full stack, from Prisma schemas to frontend props.
 - **Database**: [Neon DB](https://neon.tech/) (PostgreSQL) - Serverless Postgres used for reliable data persistence and low-latency scaling.
 - **ORM**: [Prisma](https://www.prisma.io/) - Provides a type-safe interface for database queries and schema migrations.

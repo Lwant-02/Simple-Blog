@@ -1,8 +1,6 @@
 import BlogListClient from "@/components/blog/blog-list-client";
 import { Suspense } from "react";
 
-export const revalidate = 60;
-
 export default function Home() {
   return (
     <Suspense>

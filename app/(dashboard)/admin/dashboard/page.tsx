@@ -94,14 +94,14 @@ export default async function AdminDashboard() {
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
             <a
-              href="/admin/posts/new"
+              href="/admin/dashboard/posts/new"
               className="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all group"
             >
               <FileText className="h-8 w-8 mb-3 text-muted-foreground group-hover:text-primary transition-colors" />
               <span className="font-medium">Create New Post</span>
             </a>
             <a
-              href="/admin/comments"
+              href="/admin/dashboard/comments"
               className="flex flex-col items-center justify-center p-6 rounded-xl border border-dashed border-muted-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all group"
             >
               <MessageSquare className="h-8 w-8 mb-3 text-muted-foreground group-hover:text-primary transition-colors" />

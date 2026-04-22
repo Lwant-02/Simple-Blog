@@ -88,14 +88,15 @@ export function PostForm({ initialData, isEdit = false }: PostFormProps) {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        cache: "no-store",
       });
 
       if (res.ok) {
         toast.success(
           isEdit ? "Post updated successfully" : "Post created successfully",
         );
-        router.push("/admin/dashboard/posts");
         router.refresh();
+        router.push("/admin/dashboard/posts");
       } else {
         const error = await res.json();
         toast.error(error.message || "Failed to save post");

@@ -21,6 +21,7 @@ export function DeletePostButton({ id }: DeletePostButtonProps) {
     try {
       const res = await fetch(`/api/admin/posts/${id}`, {
         method: "DELETE",
+        cache: "no-store",
       });
 
       if (res.ok) {

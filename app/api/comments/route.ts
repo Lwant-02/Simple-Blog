@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import * as z from "zod";
+import { revalidatePath } from "next/cache";
 
 const commentSchema = z.object({
   senderName: z.string().min(2).max(50),
@@ -21,6 +22,9 @@ export async function POST(req: Request) {
         isApproved: false,
       },
     });
+
+    revalidatePath("/admin/dashboard/comments");
+    revalidatePath("/admin/dashboard");
 
     return NextResponse.json({ success: true, comment }, { status: 201 });
   } catch (error) {

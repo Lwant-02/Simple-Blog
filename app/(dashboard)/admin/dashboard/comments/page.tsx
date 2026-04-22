@@ -92,7 +92,8 @@ export default async function CommentsModerationPage() {
                             where: { id: comment.id },
                             data: { isApproved: true },
                           });
-                          revalidatePath("/admin/comments");
+                          revalidatePath("/admin/dashboard/comments");
+                          revalidatePath("/admin/dashboard");
                         }}
                       >
                         <Button
@@ -109,7 +110,8 @@ export default async function CommentsModerationPage() {
                           await prisma.comment.delete({
                             where: { id: comment.id },
                           });
-                          revalidatePath("/admin/comments");
+                          revalidatePath("/admin/dashboard/comments");
+                          revalidatePath("/admin/dashboard");
                         }}
                       >
                         <Button

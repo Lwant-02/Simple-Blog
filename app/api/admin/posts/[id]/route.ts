@@ -54,6 +54,10 @@ export async function DELETE(
     await prisma.blog.delete({
       where: { id },
     });
+
+    revalidatePath("/admin/dashboard/posts");
+    revalidatePath("/");
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Failed to delete post:", error);

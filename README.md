@@ -21,28 +21,32 @@ A high-performance, professional CMS and Blog engine built with the **Next.js Ap
 ## 📂 Project Structure
 
 ```bash
-├── app/                  # Next.js App Router (The "Skeleton")
-│   ├── (auth)/           # Route Group for Admin Login
-│   ├── admin/            # Admin Panel (Dashboard, Posts, Comments)
-│   ├── api/              # Backend API routes for CRUD operations
+├── app/                  # Next.js App Router
+│   ├── (auth)/           # Admin Authentication routes
+│   ├── (dashboard)/      # Admin Panel routes (Dashboard, Posts, Comments)
+│   ├── api/              # Backend API routes for CRUD & view counting
 │   ├── blog/             # Public Blog Detail routes (SSR)
-│   ├── layout.tsx        # Global Layout (UI Navigation)
-│   ├── page.tsx          # Blog Listing Home Page (ISR)
-│   ├── sitemap.ts        # Dynamic SEO Sitemap
-│   └── robots.ts         # Robots.txt Configuration
-├── components/           # Reusable UI components (Shadcn + Custom)
-│   ├── admin/            # Admin-specific components (Sidebar, Tables)
-│   ├── blog/             # Public-facing components (Blog cards, Comments)
-│   └── ui/               # Base Shadcn UI components (Buttons, Inputs)
-├── lib/                  # Shared Utilities
-│   ├── prisma.ts         # Prisma Client singleton
-│   └── utils.ts          # Tailwind merge & helper functions
-├── prisma/               # Database Configuration
-│   └── schema.prisma     # DB Schema (Blog, Image, Comment tables)
-├── public/               # Static assets (Images, Favicons)
-├── .env.example          # Template for required Environment Variables
-├── middleware.ts         # Auth protection for /admin routes
-└── README.md             # Project documentation
+│   ├── globals.css       # Global styles & Tailwind variables
+│   ├── layout.tsx        # Root layout with Metadata API
+│   ├── page.tsx          # Home page with ISR (revalidate: 60)
+│   ├── robots.ts         # Dynamic Robots.txt configuration
+│   └── sitemap.ts        # Dynamic XML Sitemap generator
+├── components/           # UI Component Library
+│   ├── admin/            # Admin-specific logic (Delete buttons, etc.)
+│   ├── blog/             # Blog-specific logic (Detail page, List client)
+│   ├── ui/               # Reusable Shadcn UI primitives
+│   ├── admin-sidebar.tsx # Main dashboard navigation
+│   └── blog-card.tsx     # Reusable card for article previews
+├── lib/                  # Shared core utilities
+│   ├── prisma.ts         # Prisma Client (Singleton pattern)
+│   └── utils.ts          # Tailwind CSS class merging logic
+├── prisma/               # Database Layer
+│   ├── schema.prisma     # Relational schema definition
+│   └── seed.ts           # 20-post automated seeding script
+├── types/                # Global TypeScript definitions
+│   └── index.ts          # Shared interfaces (e.g., BlogWithImages)
+├── middleware.ts         # Server-side auth protection middleware
+└── proxy.ts              # Edge-compatible auth proxy logic
 ```
 
 ---

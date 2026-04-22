@@ -2,7 +2,7 @@
 
 A high-performance, professional CMS and Blog engine built with the **Next.js App Router**, featuring a robust moderation system, server-side SEO optimization, and a premium "Liquid Glass" design aesthetic.
 
-**[🌐 Live Demo](https://your-live-demo-link.vercel.app)**
+**[🌐 Live Demo](https://simpleblog-th.vercel.app)**
 
 ---
 

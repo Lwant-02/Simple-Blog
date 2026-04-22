@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import { FileText, MessageSquare, Eye, TrendingUp } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Admin - Dashboard",
   description: "Admin dashboard",

@@ -22,8 +22,6 @@ import {
 } from "@/components/ui/card";
 import { DeletePostButton } from "@/components/admin/delete-post-button";
 
-export const dynamic = "force-dynamic";
-
 export const metadata = {
   title: "Admin - Posts",
   description: "Manage your blog articles and drafts.",

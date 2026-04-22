@@ -94,7 +94,7 @@ export function PostForm({ initialData, isEdit = false }: PostFormProps) {
         toast.success(
           isEdit ? "Post updated successfully" : "Post created successfully",
         );
-        router.push("/admin/posts");
+        router.push("/admin/dashboard/posts");
         router.refresh();
       } else {
         const error = await res.json();
@@ -384,7 +384,7 @@ export function PostForm({ initialData, isEdit = false }: PostFormProps) {
                 type="button"
                 variant="outline"
                 className="w-full h-10"
-                onClick={() => router.push("/admin/posts")}
+                onClick={() => router.push("/admin/dashboard/posts")}
               >
                 Cancel
               </Button>

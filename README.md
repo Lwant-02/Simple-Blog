@@ -76,8 +76,8 @@ The system utilizes a relational PostgreSQL schema managed via Prisma. Key relat
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd assignment
+   git clone https://github.com/Lwant-02/Simple-Blog.git
+   cd simple-blog
    ```
 
 2. **Install dependencies:**

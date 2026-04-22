@@ -18,6 +18,35 @@ A high-performance, professional CMS and Blog engine built with the **Next.js Ap
 
 ---
 
+## 📂 Project Structure
+
+```bash
+├── app/                  # Next.js App Router (The "Skeleton")
+│   ├── (auth)/           # Route Group for Admin Login
+│   ├── admin/            # Admin Panel (Dashboard, Posts, Comments)
+│   ├── api/              # Backend API routes for CRUD operations
+│   ├── blog/             # Public Blog Detail routes (SSR)
+│   ├── layout.tsx        # Global Layout (UI Navigation)
+│   ├── page.tsx          # Blog Listing Home Page (ISR)
+│   ├── sitemap.ts        # Dynamic SEO Sitemap
+│   └── robots.ts         # Robots.txt Configuration
+├── components/           # Reusable UI components (Shadcn + Custom)
+│   ├── admin/            # Admin-specific components (Sidebar, Tables)
+│   ├── blog/             # Public-facing components (Blog cards, Comments)
+│   └── ui/               # Base Shadcn UI components (Buttons, Inputs)
+├── lib/                  # Shared Utilities
+│   ├── prisma.ts         # Prisma Client singleton
+│   └── utils.ts          # Tailwind merge & helper functions
+├── prisma/               # Database Configuration
+│   └── schema.prisma     # DB Schema (Blog, Image, Comment tables)
+├── public/               # Static assets (Images, Favicons)
+├── .env.example          # Template for required Environment Variables
+├── middleware.ts         # Auth protection for /admin routes
+└── README.md             # Project documentation
+```
+
+---
+
 ## 📊 Database Schema
 
 The system utilizes a relational PostgreSQL schema managed via Prisma. Key relationships are designed for high-performance retrieval and data integrity.
@@ -53,9 +82,10 @@ The system utilizes a relational PostgreSQL schema managed via Prisma. Key relat
 - **Secure Authentication**: Admin access is protected by **JWT (Jose)** stored in `HttpOnly` secure cookies.
 
 ### 🧩 Reusability & Scalability
-- **Interactive Admin Components**: Developed a reusable `DeletePostButton` client component that handles confirmation flows and API interactions seamlessly.
-- **Premium Admin Layout**: Implemented a sticky, glassmorphism-inspired navigation bar in the dashboard for a "Quiet Luxury" engineering feel.
-- **Suspense Boundaries**: Wrapped search-dependent components in `<Suspense>` to ensure robust build stability and smooth client-side hydration.
+- **Unified Admin Architecture**: Leveraged the Shadcn Sidebar component to establish a scalable navigation hub, allowing for the addition of new modules (e.g., Users, Settings, Analytics) without refactoring the core dashboard layout.
+- **Design Token Strategy**: Utilized Tailwind CSS variables and Shadcn UI theming to ensure the entire system is "brand-agnostic," enabling rapid visual rebranding across multiple projects by modifying a single theme file.
+- **Metadata & SEO Framework**: Implemented centralized Sitemap and Robots logic using Next.js Metadata API, creating a reusable pattern for ensuring search engine discoverability across dynamic URL slugs.
+- **Robust Build Stability**: Wrapped search-dependent listing components in `<Suspense>` boundaries to handle client-side hydration for search parameters, ensuring the build remains stable and the UI remains responsive during data fetching.
 
 ---
 

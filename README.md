@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simple Blog System
 
-## Getting Started
+A high-performance, professional CMS and Blog engine built with the **Next.js App Router**, featuring a robust moderation system, server-side SEO optimization, and a premium "Liquid Glass" design aesthetic.
 
-First, run the development server:
+**[🌐 Live Demo](https://your-live-demo-link.vercel.app)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/) - Leveraged for Server-Side Rendering (SSR) and optimized hydration.
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - Ensures type safety across the full stack, from Prisma schemas to frontend props.
+- **Database**: [Neon DB](https://neon.tech/) (PostgreSQL) - Serverless Postgres used for reliable data persistence and low-latency scaling.
+- **ORM**: [Prisma](https://www.prisma.io/) - Provides a type-safe interface for database queries and schema migrations.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Used for rapid, responsive UI development with a custom design system.
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/) - Built on Radix UI for accessible, high-quality interactive components.
+- **Validation**: [Zod](https://zod.dev/) - Handles schema validation for API requests and client-side forms.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📊 Database Schema
 
-To learn more about Next.js, take a look at the following resources:
+The system utilizes a relational PostgreSQL schema managed via Prisma. Key relationships are designed for high-performance retrieval and data integrity.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Table | Description | Key Fields |
+| :--- | :--- | :--- |
+| **Blog** | Stores article content and metadata. | `id`, `title`, `slug` (unique), `summary`, `content`, `viewCount`, `published`. |
+| **BlogImage** | Stores secondary gallery images. | `id`, `url`, `blogId` (Foreign Key to Blog). |
+| **Comment** | Stores user interactions. | `id`, `senderName`, `content`, `isApproved`, `blogId`. |
+| **Admin** | Manages dashboard credentials. | `id`, `username`, `password` (hashed). |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Entity Relationship Overview:**
+- A **Blog** has a one-to-many relationship with **BlogImage** (up to 6 images).
+- A **Blog** has a one-to-many relationship with **Comment**.
+- Comments are hidden by default (`isApproved: false`) until moderated.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ✨ Key Features & Design Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🔍 SEO & Routing
+- **Dynamic URL Slugs**: Instead of IDs, articles use readable slugs (e.g., `/blog/mastering-typescript`) to improve search engine rankings.
+- **Server-Side Metadata**: Implemented `generateMetadata` in `app/blog/[slug]/page.tsx` to dynamically inject OpenGraph titles and descriptions for every post.
+
+### ⚡ Performance Optimization
+- **Incremental Static Regeneration (ISR)**: The home page utilizes `revalidate = 60`, ensuring the site remains lightning-fast while automatically updating content every minute without manual rebuilds.
+- **Database Indexing**: Explicitly added indexes to the `title` and `createdAt` columns in the `Blog` model to ensure millisecond-fast performance for search queries and sorting.
+- **View Counting System**: Implemented an atomic view increment system using a server-side `PATCH` method. It includes a `useRef` guard on the client to prevent duplicate counts during a single session or React StrictMode re-renders.
+
+### 🛡️ Data Integrity & Security
+- **Type Safety**: Unified the data flow using a custom `BlogWithImages` interface in `types/index.ts`, ensuring end-to-end type safety from Prisma to the Admin Dashboard.
+- **Strict Zod Validation**: The comment system includes a custom regex validation (`/^[ก-๙0-9\s]+$/`) ensuring that only **Thai characters and numbers** are submitted.
+- **Secure Authentication**: Admin access is protected by **JWT (Jose)** stored in `HttpOnly` secure cookies.
+
+### 🧩 Reusability & Scalability
+- **Interactive Admin Components**: Developed a reusable `DeletePostButton` client component that handles confirmation flows and API interactions seamlessly.
+- **Premium Admin Layout**: Implemented a sticky, glassmorphism-inspired navigation bar in the dashboard for a "Quiet Luxury" engineering feel.
+- **Suspense Boundaries**: Wrapped search-dependent components in `<Suspense>` to ensure robust build stability and smooth client-side hydration.
+
+---
+
+## 🛠️ Admin Panel Instructions
+
+**Accessing the Dashboard:**
+1. Navigate to `/admin/login`.
+2. Enter the admin credentials (default seeded: `admin` / `admin123`).
+3. Upon successful login, you will be redirected to the **Dashboard Overview**.
+
+**Moderation Flow:**
+- **Manage Posts**: Create, edit, or delete articles. You can toggle the `Published` status to control visibility on the public site.
+- **Comment Inbox**: View a list of pending comments. Approve them to make them visible on the blog post, or reject them to delete them permanently.
+
+---
+
+## 💻 Setup & Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd assignment
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration:**
+   Create a `.env` file in the root and add your database and JWT secrets:
+   ```env
+   DATABASE_URL="postgresql://user:pass@host/db"
+   JWT_SECRET="your_secret_key"
+   BASE_URL="https://your-blog-domain.com"
+   ```
+
+### 🔐 Admin Access
+**Dashboard Login:**
+- **URL**: `/admin/login`
+- **Username**: `admin`
+- **Password**: `admin123`
+
+### 🔍 Advanced SEO & Crawling
+- **Dynamic Sitemap**: Automatically generated via `sitemap.ts`, indexing all public articles.
+- **Robots Management**: Configured in `robots.ts` to guide crawlers while protecting private admin routes.
+- **Metadata**: Comprehensive keyword lists and OpenGraph tags for maximum visibility.
+
+4. **Database Setup:**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   npx prisma db seed
+   ```
+
+5. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 📝 Assumptions & Limitations
+
+- **Image Constraints**: The system assumes a maximum of **6 secondary images** per blog post to maintain UI performance and layout balance.
+- **Image Hosting**: Currently, images are provided via external URLs (Unsplash used for seeding).
+- **Thai-Only Comments**: The validation strictly enforces Thai characters; English or other languages will trigger a validation error by design.
+
+---
+
+## 🚀 Future Improvements
+
+**Current Status**: 100% of core requirements (CRUD, SEO, Moderation, Validation, Performance, View Tracking) are implemented.
+
+**If given more time, I would continue with:**
+1. **Rich Text Editor**: Integrate TipTap or Quill for a full WYSIWYG authoring experience.
+2. **Cloud Media Storage**: Implement direct image uploads to Cloudinary or AWS S3.
+3. **Draft Preview System**: Add a "Live Preview" mode to see how articles look before they are published.
